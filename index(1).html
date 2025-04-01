@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>⚠️ 合川区网络异常检测系统</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        #terminal {
+            border: 2px solid #0f0;
+            padding: 20px;
+            min-height: 300px;
+        }
+        .blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div>正在扫描合川区网络节点...<span class="blink">_</span></div>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // 新增防调试检测
+        setInterval(function(){
+            const before = new Date().getTime();
+            debugger;
+            if(new Date().getTime() - before > 100){
+                document.body.innerHTML = "<h1>⚠️ 检测到非法调试行为！</h1>";
+                window.location.reload();
+            }
+        }, 1000);
+
+        // 新增键盘事件监听
+        document.addEventListener('keydown', function(e) {
+            // 禁用F12
+            if(e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                alert('管理员已禁用开发者工具');
+                return false;
+            }
+            // 禁用Ctrl+Shift+I
+            if(e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            // 禁用Ctrl+U
+            if(e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        const techMessages = [
+            "检测到钓鱼城遗址附近异常数据包",
+            "分析CQHC-520协议流量...",
+            "发现未加密的TCP心跳信号 ❤️",
+            "解码嘉陵江流域数据流...",
+            "正在破解3D魔方矩阵加密..."
+        ];
+
+        const finalMessage = `
+⚠️ 高危警报 ⚠️
+检测到【${new Date().getFullYear()}愚人节特别漏洞】
+------------------------------------------------
+漏洞类型：单向情感传输协议阻塞
+影响范围：合川区南屏路至滨江路区域
+危险等级：❤️❤️❤️❤️❤️
+解决方案：立即执行 rm -rf /犹豫 && 输入告白指令
+        `;
+
+        let step = 0;
+        const term = document.getElementById('output');
+
+        function simulateHack() {
+            if (step < techMessages.length) {
+                term.innerHTML += `<div>> ${techMessages[step]}</div>`;
+                step++;
+                setTimeout(simulateHack, 2000);
+            } else {
+                term.innerHTML += `<div class="blink">${finalMessage}</div>`;
+                setTimeout(() => {
+                    window.location.href = "https://www.bilibili.com/video/BV1GJ411x7h7";
+                }, 10000);
+            }
+        }
+
+        // 启动3D效果
+        document.body.addEventListener('mousemove', (e) => {
+            document.body.style.textShadow = `
+                ${(e.clientX/window.innerWidth)*20-10}px 
+                ${(e.clientY/window.innerHeight)*20-10}px 
+                2px #0f8
+            `;
+        });
+
+        // 开始执行
+        setTimeout(simulateHack, 1000);
+    </script>
+</body>
+</html> 
